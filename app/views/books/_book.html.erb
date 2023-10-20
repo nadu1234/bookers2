@@ -1,3 +1,13 @@
+<% if book.errors.any? %>
+  <strong><%= book.errors.count %>errors prohibited this book from being saved:</strong>
+  <ul>
+    <% book.errors.full_messages.each do |message| %>
+      <li><%= message %></li><br>
+    <% end%>
+  </ul>
+<% end %>
+
+
 <h2>User info</h2>
 <table>
   <tr><th><%= image_tag user.get_profile_image(100,100) %></th></tr>
@@ -7,9 +17,9 @@
   <tr><th>introduction</th><td><%= user.introduction %></td></tr>
 
 </table>
-
+<% if user == current_user %>
 <%= link_to "Edit", edit_user_path(current_user.id) %>
-
+<% end %>
 <h2>New book</h2>
 
 
