@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+
+  before_action :is_matching_login_user, only: [:edit, :update]
+
   def create
     @books = Book.all
     @book = Book.new(book_params)
@@ -21,6 +24,7 @@ class BooksController < ApplicationController
   def show
     @book_new = Book.new
     @book = Book.find(params[:id])
+    @book_id = User.find(@book.user_id)
     @user = User.find(current_user.id)
   end
 
@@ -37,12 +41,12 @@ class BooksController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     flash[:notice] = "Book was successfully destroyed."
     book = Book.find(params[:id])  # データ（レコード）を1件取得
     book.destroy  # データ（レコード）を削除
-    redirect_to books_path  
+    redirect_to books_path
   end
 
   private
@@ -50,5 +54,13 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
+
+  def is_matching_login_user
+    book = Book.find(params[:id])
+    unless book.user_id == current_user.id
+      redirect_to books_path
+    end
+  end
+
 
 end
