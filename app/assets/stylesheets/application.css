@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.navbar .nav-item a,
+.navbar .navbar-brand 
+{
+   color: white !important;
+   text-decoration: none;
+}
+
+.navbar .nav-item a:hover 
+{
+   color: rgba(255, 255, 255, 0.8) !important;
+   text-decoration: none;
+}
+
+
